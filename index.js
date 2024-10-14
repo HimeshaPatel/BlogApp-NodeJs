@@ -1,10 +1,12 @@
 const path = require('path')
 const express = require('express');
 const mongoose = require('mongoose')
+const app = express();
 
 const userRoute = require('./routes/user')
 
-const app = express();
+app.use(express.json());
+
 const PORT = 8000;
 
 mongoose.connect('mongodb://localhost:27017/blogify')
@@ -13,8 +15,9 @@ mongoose.connect('mongodb://localhost:27017/blogify')
 app.set('view engine', 'ejs');
 app.set("views", path.resolve("./views"))
 
+app.use(express.urlencoded({ extended: false }));
 
-app.use(express.urlencoded({extended: false}))
+
 
 app.get('/', (req, res) => {
     res.render("home")

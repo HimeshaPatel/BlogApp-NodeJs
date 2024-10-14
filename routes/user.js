@@ -8,8 +8,16 @@ router.get('/signin', (req, res) => {
 router.get('/signup', (req, res) => {
     return res.render('signup');
 })
+router.post('/signin', (req, res) => {
+    const { email, password} = req.body;
+    const user = User.matchPassword(email, password);
 
-router.post('/signup', async(res, req) =>{
+    console.log(user);
+    return res.redirect('/')
+})
+
+router.post('/signup', async(req, res) =>{
+    console.log(req.body)
     const {fullName, email, password} = req.body;
     await User.create({
         fullName, email, password
