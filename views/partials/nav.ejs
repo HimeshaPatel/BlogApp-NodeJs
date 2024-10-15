@@ -9,11 +9,12 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
-       
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
+
+        <% if (locals.user) { %>
+          <li class="nav-item">
+          <a class="nav-link" href="#">Add Blog</a>
         </li>
-        <li class="nav-item dropdown">
+            <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Himesha Patel
           </a>
@@ -22,7 +23,23 @@
            
           </ul>
         </li>
+        <% } else {%>
+          <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/user/signup">Create Account</a>
+        </li>
+       <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/user/signin">SignIn</a>
+        </li>
+       <% } %>
+    
       </ul>
     </div>
   </div>
 </nav>
+
+<% if (locals.error) { %>
+  <div class="container mt-4">
+ <div class="alert alert-danger" role="alert">
+ <%= locals.error  %>
+</div></div>
+<% } %>
