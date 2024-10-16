@@ -1,47 +1,52 @@
-const { createHmac, randomBytes } = require('crypto');
-const { Schema, model } = require('mongoose');
+const { createHmac, randomBytes } = require("crypto");
+const { Schema, model } = require("mongoose");
 const { createTokenForUser } = require("../services/authentication");
 
-
-const userSchema = new Schema({
+const userSchema = new Schema(
+  {
     fullName: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     email: {
-        type: String,
-        required: true,
-        unique: true,
+      type: String,
+      required: true,
+      unique: true,
     },
     salt: {
-        type: String,        
+      type: String,
     },
     password: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
-    profileImage: {
-        type: String,
-        default: '/images/default.jpg'
+    profileImageURL: {
+      type: String,
+      default: "/images/default.png",
     },
     role: {
-        type: String,
-        enum: ["USER", "ADMIN"],
-        default: "USER"
-    }
-}, { timestamps: true })
+      type: String,
+      enum: ["USER", "ADMIN"],
+      default: "USER",
+    },
+  },
+  { timestamps: true }
+);
 
-userSchema.pre('save', function (next) {
-    const user = this;
-    if (!user.isModified('password')) return
+userSchema.pre("save", function (next) {
+  const user = this;
 
-    const salt = randomBytes(16).toString();
-    const hashedPassword = createHmac('sha256', salt).update(user.password).digest('hex');
+  if (!user.isModified("password")) return;
 
-    this.salt = salt;
-    this.password = hashedPassword;
+  const salt = randomBytes(16).toString();
+  const hashedPassword = createHmac("sha256", salt)
+    .update(user.password)
+    .digest("hex");
 
-    next();
+  this.salt = salt;
+  this.password = hashedPassword;
+
+  next();
 });
 
 userSchema.static(
@@ -65,6 +70,6 @@ userSchema.static(
   }
 );
 
-const User = model('user', userSchema);
+const User = model("user", userSchema);
 
 module.exports = User;

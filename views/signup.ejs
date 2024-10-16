@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-     <%- include('./partials/head') %>
-    <title>SignUp</title>
-</head>
-<body>
-     <%- include('./partials/nav') %>
-     <div class="container mt-4">
+  <head>
+    <%- include('./partials/head') %>
+    <title>Signup</title>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+
+    <div class="container mt-4">
       <form action="/user/signup" method="post">
         <div class="mb-3">
           <label for="fullName" class="form-label">Full Name</label>
@@ -46,6 +47,7 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
+
     <%- include('./partials/scripts') %>
-</body>
+  </body>
 </html>

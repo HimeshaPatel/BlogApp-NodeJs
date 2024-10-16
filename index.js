@@ -22,7 +22,13 @@ app.use(cookieParser());
 app.use(checkForAuthenticationCookie('token'));
 
 
+// app.get('/', (req, res) => {
+//     res.render("home", {
+//         user: req.user
+//     })
+// })
 app.get('/', (req, res) => {
+    console.log('req.user:', req.user);
     res.render("home", {
         user: req.user
     })
