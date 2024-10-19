@@ -5,7 +5,23 @@
   </head>
   <body>
        <%- include('./partials/nav') %>
-     <%= JSON.stringify(user) %>
+
+    <div class="container mt-4">
+     <% blogs.forEach(blog => { %>
+      <div class="card mb-3" style="width: 18rem;">      
+          
+            <img src="<%= blog.coverImageURL %>" class="img-fluid rounded-start" >
+                 
+            <div class="card-body">
+              <h5 class="card-title"><%= blog.title %></h5>
+              <a href="/blog/<%= blog._id %>" class="btn btn-primary">Read More</a>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          
+        
+      </div>
+     <% }) %>
+    </div>
       
      
     <%- include('./partials/scripts') %>
